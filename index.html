@@ -1,0 +1,701 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="data:,">
+<title>Tier List HP Remix — Chipset Terkencang, Jack, 5G, microSD</title>
+<style>
+/* Halaman ini sengaja tidak memuat font atau berkas apa pun dari luar:
+   seluruh tampilan memakai font bawaan perangkat, jadi halaman tampil
+   seketika dan tidak ada satu pun unduhan yang bisa gagal atau tertahan. */
+:root{
+  --bg:#f4f4f4; --surface:#ffffff; --surface2:#ececec; --ink:#111111; --ink2:#3d3d3d; --muted:#6b6b6b;
+  --line:#d9d9d9; --line2:#c4c4c4; --chip:#111111; --chip-ink:#ffffff;
+  --ok:#1a7f37; --warn:#9a6a00; --bad:#b42318; --info:#175cd3;
+  --radius:14px;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#0c0c0c; --surface:#161616; --surface2:#1f1f1f; --ink:#f2f2f2; --ink2:#d6d6d6; --muted:#a3a3a3;
+    --line:#2b2b2b; --line2:#3a3a3a; --chip:#f2f2f2; --chip-ink:#111111;
+    --ok:#4cc38a; --warn:#e3b341; --bad:#ff7a6e; --info:#7aa7ff;
+  }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto} }
+body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
+.mono{font-family:ui-monospace,"SF Mono",Consolas,"Roboto Mono","Liberation Mono",monospace}
+a{color:var(--ink);text-decoration:underline;text-underline-offset:3px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+h1,h2,h3{line-height:1.15;margin:0}
+h2{font-size:clamp(24px,4vw,34px);font-weight:800;letter-spacing:-.02em}
+h3{font-size:19px;font-weight:800;letter-spacing:-.01em}
+p{margin:0}
+.small{font-size:13px;color:var(--muted)}
+section{padding:44px 0 8px}
+header{padding:40px 0 8px}
+.kicker{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+h1{font-size:clamp(32px,6vw,54px);font-weight:800;letter-spacing:-.03em;margin:10px 0 14px;max-width:18ch}
+.lede{font-size:clamp(16px,2.4vw,19px);color:var(--ink2);max-width:64ch}
+.criteria{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
+.criteria span{border:1px solid var(--line2);border-radius:999px;padding:7px 13px;font-size:13px;font-weight:600;background:var(--surface)}
+.meta-line{margin-top:18px;font-size:13px;color:var(--muted)}
+.verdict{display:grid;grid-template-columns:1fr;gap:14px;margin-top:8px}
+@media(min-width:860px){.verdict{grid-template-columns:1.25fr 1fr 1fr}}
+.vcard{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:22px}
+.vcard.main{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.vcard.main .small{color:inherit;opacity:.65}
+.vtag{font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
+.vcard h3{font-size:21px;margin:8px 0 6px}
+.vprice{font-family:ui-monospace,"SF Mono",Consolas,"Roboto Mono","Liberation Mono",monospace;font-weight:700;font-size:20px;margin-top:12px}
+.vcard p{font-size:14.5px;color:var(--ink2)}
+.vcard.main p{color:inherit;opacity:.85}
+.alert{border:1px solid var(--line2);border-left:6px solid var(--warn);background:var(--surface);border-radius:10px;padding:18px 20px;margin-top:22px}
+.alert.red{border-left-color:var(--bad)}
+.alert.green{border-left-color:var(--ok)}
+.alert h3{font-size:17px;margin-bottom:6px}
+.alert p{font-size:14.5px;color:var(--ink2)}
+.alert p+p{margin-top:8px}
+.facts{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:16px}
+@media(min-width:760px){.facts{grid-template-columns:repeat(4,1fr)}}
+.fact{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px}
+.fact b{display:block;font-size:19px;font-weight:800;letter-spacing:-.01em}
+.fact span{font-size:12.5px;color:var(--muted)}
+.controls{position:sticky;top:0;z-index:20;background:var(--bg);padding:14px 0 10px;border-bottom:1px solid var(--line)}
+.controls-row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.fbtn{appearance:none;border:1px solid var(--line2);background:var(--surface);color:var(--ink);border-radius:999px;padding:10px 16px;font:inherit;font-size:13.5px;font-weight:700;cursor:pointer;min-height:40px}
+.fbtn[aria-pressed="true"]{background:var(--chip);color:var(--chip-ink);border-color:var(--chip)}
+.fbtn:active{transform:translateY(1px)}
+.controls select{font:inherit;font-size:13.5px;font-weight:600;border:1px solid var(--line2);background:var(--surface);color:var(--ink);border-radius:999px;padding:10px 14px;min-height:40px;margin-left:auto}
+#countLine{font-size:13px;color:var(--muted);margin-top:8px}
+.tierhead{display:flex;align-items:baseline;gap:14px;margin:28px 0 6px;flex-wrap:wrap}
+.tierletter{font-family:ui-monospace,"SF Mono",Consolas,"Roboto Mono","Liberation Mono",monospace;font-weight:700;font-size:15px;background:var(--ink);color:var(--bg);border-radius:8px;padding:5px 12px}
+.tierhead h2{font-size:26px}
+.tierhead p{color:var(--muted);font-size:14px;width:100%}
+.grid{display:grid;grid-template-columns:1fr;gap:14px;margin-top:14px}
+@media(min-width:760px){.grid{grid-template-columns:1fr 1fr}}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:20px;display:flex;flex-direction:column;gap:12px}
+.card.top{border:2px solid var(--ink)}
+.card .badge{align-self:flex-start;font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;border:1px solid var(--line2);border-radius:999px;padding:4px 10px;color:var(--ink2)}
+.card h3{font-size:20px}
+.variant{font-size:13.5px;color:var(--muted);font-weight:600;margin-top:-8px}
+.price{font-family:ui-monospace,"SF Mono",Consolas,"Roboto Mono","Liberation Mono",monospace;font-weight:700;font-size:19px}
+.price small{display:block;font-family:system-ui,sans-serif;font-weight:500;font-size:12px;color:var(--muted);margin-top:2px}
+.specs{display:grid;grid-template-columns:1fr 1fr;gap:8px 14px;font-size:13.5px}
+.specs div b{display:block;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700;margin-bottom:1px}
+.checkline{font-size:13px;font-weight:700}
+.checkline span{margin-right:10px;white-space:nowrap}
+.tradeoff{font-size:14px;color:var(--ink2);border-top:1px solid var(--line);padding-top:12px}
+.tradeoff b{color:var(--ink)}
+.srcs{font-size:12px;color:var(--muted)}
+.srcs a{color:var(--muted)}
+.hidden-card{display:none}
+.chartbox{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:20px;margin-top:14px;overflow-x:auto}
+.chartbox svg{width:100%;height:auto;display:block;min-width:520px}
+.bar{fill:var(--ink)}
+.bar.grey{fill:var(--line2)}
+.barlab{font-family:ui-monospace,"SF Mono",Consolas,"Roboto Mono","Liberation Mono",monospace;font-size:12px;font-weight:700;fill:var(--ink)}
+.barnam{font-family:system-ui,sans-serif;font-size:12.5px;font-weight:600;fill:var(--ink2)}
+.lat{display:grid;grid-template-columns:1fr;gap:10px;margin-top:14px}
+@media(min-width:760px){.lat{grid-template-columns:repeat(3,1fr)}}
+.latcard{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:18px}
+.latcard .big{font-family:ui-monospace,"SF Mono",Consolas,"Roboto Mono","Liberation Mono",monospace;font-size:24px;font-weight:700}
+.latcard h3{font-size:16px;margin-bottom:4px}
+.latcard p{font-size:13.5px;color:var(--ink2)}
+.tablewrap{overflow-x:auto;margin-top:14px;border:1px solid var(--line);border-radius:var(--radius);background:var(--surface)}
+table{width:100%;border-collapse:collapse;font-size:14px;min-width:560px}
+.tablewrap table{border:none;border-radius:0;margin-top:0}
+th,td{text-align:left;padding:11px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);background:var(--surface2)}
+tr:last-child td{border-bottom:none}
+td.num{font-family:ui-monospace,"SF Mono",Consolas,"Roboto Mono","Liberation Mono",monospace;font-weight:700;white-space:nowrap}
+.excl{display:grid;grid-template-columns:1fr;gap:0;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;margin-top:14px}
+.excl div{padding:13px 18px;border-bottom:1px solid var(--line);font-size:14.5px;display:flex;gap:12px;justify-content:space-between;flex-wrap:wrap}
+.excl div:last-child{border-bottom:none}
+.excl b{font-weight:700}
+.excl span{color:var(--bad);font-weight:700;font-size:13px}
+footer{padding:48px 0 64px;margin-top:40px;border-top:1px solid var(--line)}
+footer h2{font-size:22px;margin-bottom:10px}
+footer p, footer li{font-size:14px;color:var(--ink2)}
+footer ul{padding-left:18px;margin:8px 0}
+footer li{margin-bottom:5px}
+.openq{background:var(--surface);border:1px dashed var(--line2);border-radius:var(--radius);padding:18px 20px;margin-top:16px}
+.openq h3{font-size:16px;margin-bottom:6px}
+</style>
+</head>
+<body>
+
+<header class="wrap">
+  <p class="kicker">Riset mendalam ronde 2 · 14 November 2026 · Diperbarui untuk project berat &amp; multitasking</p>
+  <h1>Chipset paling kencang yang masih punya jack, 5G, dan microSD.</h1>
+  <p class="lede">Kriteria diperketat: chipset harus benar-benar kencang untuk project berat dengan banyak track dan efek plus multitasking berat, diusahakan mendukung 5G dan microSD — di samping syarat lama: jack 3,5&nbsp;mm wajib, speaker stereo, AMOLED 120&nbsp;Hz+, RAM lega, dan awet dipakai lama. Jawabannya jujur dan agak pahit: HP yang lolos <em>semua</em> kriteria memang ada, tetapi setiap model yang lebih kencang dari kelas ±489 ribu AnTuTu hanya tersedia lewat impor. Satu-satunya yang resmi dijual di Indonesia tetap satu model.</p>
+  <div class="criteria" aria-label="Kriteria wajib">
+    <span>Chipset sekencang mungkin — prioritas 1</span><span>5G</span><span>microSD</span>
+    <span>Jack 3,5 mm — wajib</span><span>Speaker stereo</span><span>AMOLED 120 Hz+</span>
+    <span>RAM 12 GB diutamakan</span><span>Storage 256 GB+, 512 GB diutamakan</span>
+  </div>
+  <p class="meta-line">Peringkat diurutkan dari kecepatan chipset (AnTuTu v10 saja, tidak dicampur versi lain). Dua angka ditampilkan bila tersedia: <strong>referensi chipset</strong> (sumber utama soc.mxbench) dan <strong>hasil ukur perangkat GSMArena</strong> — keduanya tidak sama, dan selisihnya ditampilkan apa adanya. Jack, microSD, dan stereo diverifikasi per model dari GSMArena atau spesifikasi resmi pabrikan. Harga Indonesia November 2026 dari listing Tokopedia/Shopee/store resmi sebagaimana terindeks 13–14 November 2026, kecuali disebut lain.</p>
+</header>
+
+<main class="wrap">
+
+  <!-- ============ KEPUTUSAN CEPAT ============ -->
+  <section aria-labelledby="verdict-h">
+    <h2 id="verdict-h">Keputusan cepat</h2>
+    <div class="verdict" style="margin-top:16px">
+      <article class="vcard main">
+        <p class="vtag">Satu-satunya resmi Indonesia · lolos semua kriteria</p>
+        <h3>Redmi Note 14 5G · 12/512 GB</h3>
+        <p>Tetap satu-satunya HP yang memenuhi semua kriteria sekaligus <em>dan</em> dijual resmi di Indonesia: Dimensity 7025 Ultra (±489 ribu), jack, stereo, AMOLED 120 Hz, 5G, microSD, RAM 12 GB, storage 512 GB. Konsekuensinya jelas: chipset-nya sekitar 4,7 kali lebih lambat dari skor perangkat Xperia 1 VIII, dan storagenya masih UFS 2.2.</p>
+        <p class="vprice">Rp 3.699.000 <span style="font-family:system-ui,sans-serif;font-weight:500;font-size:13px;opacity:.7">harga resmi · jalanan Rp 3,5–4,6 jt</span></p>
+      </article>
+      <article class="vcard">
+        <p class="vtag">Terkencang · lolos semua kriteria · impor</p>
+        <h3>Sony Xperia 1 VIII</h3>
+        <p class="small">Snapdragon 8 Elite Gen 5 — referensi chipset ±4.004.107, hasil ukur perangkat GSMArena 2.312.684. RAM hingga 16 GB, storage hingga 1 TB UFS 4.1, microSD dedicated hingga 2 TB. Rilis dengan Android 16 dan tanpa garansi resmi Indonesia.</p>
+        <p class="vprice">Rp 30,5–40 jt <span style="font-family:system-ui,sans-serif;font-weight:500;font-size:13px;color:var(--muted)">impor</span></p>
+      </article>
+      <article class="vcard">
+        <p class="vtag">Flagship termurah · lolos semua kriteria · impor</p>
+        <h3>Sony Xperia 1 VI</h3>
+        <p class="small">Snapdragon 8 Gen 3 — referensi chipset 2.052.015, hasil ukur perangkat GSMArena 1.612.156. Rilis dengan Android 14, storage UFS 4.0 tercepat di kelasnya. Pembaca microSD-nya lambat (±43 MB/detik), jadi project aktif tetap di storage internal.</p>
+        <p class="vprice">Rp 20–27 jt <span style="font-family:system-ui,sans-serif;font-weight:500;font-size:13px;color:var(--muted)">impor</span></p>
+      </article>
+    </div>
+
+    <div class="alert">
+      <h3>Batas masalahnya bukan jack saja — melainkan jack + penjualan resmi Indonesia</h3>
+      <p>Riset ronde 2 memeriksa semua merek 2024–2026, termasuk rugged (Ulefone, Doogee, Cubot, Oukitel), Fairphone, Sharp, dan Motorola. Hasilnya: <strong>tidak ada satu pun HP berchipset Dimensity 8300/8350/8400, Snapdragon 7+ Gen 3, 8s Gen 3, atau 8 Gen 2/3 yang masih punya jack</strong> — satu-satunya pengecualian Snapdragon 8 Gen 3 adalah Xperia 1 VI. Tidak ada Samsung dengan jack + 5G + microSD yang lebih kencang dari Exynos 1280 (±490 ribu); model yang lebih baru justru lebih lambat.</p>
+      <p>Melepas syarat penjualan resmi menaikkan plafon kecepatan sekitar <strong>8 kali lipat</strong> pada referensi chipset (4.004.107 vs ±489 ribu). Melepas jack menaikkan plafon resmi Indonesia ke Dimensity 8350 (±1.421.380) lewat Motorola Edge 60 Pro. Rincian langkah komprominya ada di bagian Batas Kompromi di bawah.</p>
+    </div>
+
+    <div class="alert red">
+      <h3>Peringatan khusus: riwayat cacat daya Sony Xperia 1 VII</h3>
+      <p>Penjualan Xperia 1 VII sempat dihentikan pada 2025 (Jepang 4 Juli, Eropa 16 Juli, juga Singapura/Hong Kong/Taiwan) karena sebagian unit mati sendiri, restart, atau tidak bisa menyala — penyebabnya papan sirkuit yang cacat dari proses produksi. Sony memberi penggantian gratis mulai 21 Juli 2025 dan penjualan dilanjutkan akhir Agustus 2025 dengan proses produksi yang diubah. Model ini tetap peringkat 2 dari sisi kecepatan dan nilai, tetapi <strong>wajib verifikasi IMEI di dukungan Sony sebelum membeli</strong>.</p>
+      <p class="srcs">Sumber: GSMArena · Notebookcheck · TechRadar · Tokopedia (data 13/11/2026)</p>
+    </div>
+  </section>
+
+  <!-- ============ TIER LIST ============ -->
+  <section aria-labelledby="tier-h">
+    <h2 id="tier-h">Peringkat lengkap — lolos semua kriteria</h2>
+    <p style="color:var(--muted);font-size:14.5px;margin-top:8px;max-width:66ch">Sembilan model di bawah ini terbukti memenuhi jack + stereo + AMOLED 120 Hz+ + 5G + microSD sekaligus. Urutan mengikuti kecepatan chipset. Peringkat 4–7 secara statistik seri (±600–627 ribu) — di rentang itu, pilihan ditentukan RAM, storage, jenis slot, dan harga, bukan kecepatan. Peringkat 8–9 juga seri (±489–490 ribu).</p>
+
+    <div class="controls" role="group" aria-label="Filter dan urutan">
+      <div class="controls-row">
+        <button class="fbtn" data-filter="all" aria-pressed="true">Semua</button>
+        <button class="fbtn" data-filter="official" aria-pressed="false">Resmi Indonesia</button>
+        <button class="fbtn" data-filter="import" aria-pressed="false">Impor saja</button>
+        <button class="fbtn" data-filter="r12" aria-pressed="false">RAM 12 GB+</button>
+        <button class="fbtn" data-filter="u10" aria-pressed="false">Di bawah 10 jt</button>
+        <select id="sortSel" aria-label="Urutkan daftar">
+          <option value="tier">Urut: peringkat chipset</option>
+          <option value="priceAsc">Urut: harga termurah</option>
+          <option value="priceDesc">Urut: harga termahal</option>
+          <option value="antutu">Urut: AnTuTu chipset tertinggi</option>
+        </select>
+      </div>
+      <p id="countLine" aria-live="polite"></p>
+    </div>
+
+    <div id="tierWrap">
+
+      <!-- TIER S -->
+      <div class="tierblock" data-tierblock="S">
+        <div class="tierhead"><span class="tierletter">TIER S</span><h2>Flagship Sony Xperia 1 — impor</h2>
+        <p>Satu-satunya keluarga HP flagship yang mempertahankan jack + microSD + stereo sampai 2026. Sony tidak dijual resmi di Indonesia (tahun keluarnya berbeda antar sumber — 2016 menurut spekgadget, 2019 menurut interogator; fakta tidak resminya tidak dibantah sumber mana pun), jadi semua unit adalah impor tanpa garansi Sony Indonesia. Penjual impor mengiklankan IMEI terdaftar bea cukai — verifikasi sebelum membeli.</p></div>
+        <div class="grid">
+
+          <article class="card top" data-price="30500000" data-antutu="4004107" data-ram="16" data-official="import">
+            <span class="badge">Peringkat 1 · Terkencang</span>
+            <h3>Sony Xperia 1 VIII</h3>
+            <p class="variant">12/256 · 12/512 · 16/512 · 16/1 TB — UFS 4.1</p>
+            <p class="price">Rp 30.500.000–40.000.000<small>Impor, Tokopedia Nov 2026 · varian 16/1 TB Rp 43.499.000 (satu listing, stok belum diketahui dalamnya)</small></p>
+            <p class="checkline"><span>5G ✓</span><span>microSD ✓ dedicated, s.d. 2 TB</span><span>Jack ✓</span><span>Stereo ✓</span></p>
+            <div class="specs">
+              <div><b>Chipset · AnTuTu v10</b>Snapdragon 8 Elite Gen 5 · chipset ±4.004.107 · perangkat GSMArena 2.312.684</div>
+              <div><b>Layar</b>LTPO OLED 6,5" · 120 Hz · terukur 1.510 nits</div>
+              <div><b>Baterai · Pendingin</b>5.000 mAh · 30 W · vapor chamber ditingkatkan dari seri VII</div>
+              <div><b>Android</b>Rilis Android 16 → hingga 4 update besar — tidak memenuhi preferensi di bawah Android 16</div>
+              <div><b>Band 5G</b>Termasuk n40 dan n78 (sesuai Indonesia)</div>
+              <div><b>Lainnya</b>IP65/IP68 · 200 g · Wi-Fi 7 · USB-C 3.2 + video out</div>
+            </div>
+            <p class="tradeoff"><b>Konsekuensi:</b> performa berkelanjutan turun cukup besar pada uji throttling CPU di lab GSMArena dan bodi terasa hangat saat beban lama, meski penurunannya bertahap dan hasil uji GPU bertahan baik. Harga impornya 8–10 kali lipat satu-satunya pilihan resmi.</p>
+            <p class="srcs">Sumber: <a href="https://m.gsmarena.com/sony_xperia_1_viii-ampp-14660.php" target="_blank" rel="noopener">GSMArena — spesifikasi &amp; hasil uji</a> · <a href="https://soc.mxbench.com/qualcomm-snapdragon-8-elite-gen-5" target="_blank" rel="noopener">soc.mxbench</a> · <a href="https://www.tokopedia.com/find/sony-xperia-512gb?utm_source=google&utm_medium=organic&utm_campaign=find" target="_blank" rel="noopener">Tokopedia</a></p>
+          </article>
+
+          <article class="card top" data-price="27500000" data-antutu="2700000" data-ram="12" data-official="import">
+            <span class="badge">Peringkat 2 · Nilai flagship terbaik — cek IMEI</span>
+            <h3>Sony Xperia 1 VII</h3>
+            <p class="variant">12/256 · 12/512 · 16/512 (Jepang/pasar tertentu) — UFS 4.0</p>
+            <p class="price">Rp 27.500.000–29.500.000<small>Impor, Tokopedia Nov 2026 · iPrice Rp 28.899.000</small></p>
+            <p class="checkline"><span>5G ✓</span><span>microSD ✓ slot berbagi, s.d. 2 TB</span><span>Jack ✓</span><span>Stereo ✓</span></p>
+            <div class="specs">
+              <div><b>Chipset · AnTuTu v10</b>Snapdragon 8 Elite · chipset ±2,7 jt · perangkat GSMArena 2.062.177</div>
+              <div><b>Layar</b>LTPO OLED 6,5" · 120 Hz</div>
+              <div><b>Baterai · Pendingin</b>5.000 mAh · 30 W · vapor chamber besar</div>
+              <div><b>Android</b>Rilis Android 15 → 16 · hingga 4 update besar, keamanan 6 tahun</div>
+              <div><b>Uji pakai GSMArena</b>Geekbench 6: 9.293 · 3DMark WLE 6.276 · pemakaian aktif 15:32</div>
+              <div><b>Performa berkelanjutan</b>Throttling progresif ke ±55% puncak setelah 20 menit (TechRadar)</div>
+            </div>
+            <p class="tradeoff"><b>Konsekuensi:</b> ada riwayat cacat daya terkonfirmasi pada batch produksi 2025 (lihat peringatan di atas) — verifikasi IMEI wajib. Throttling-nya sekelas flagship Snapdragon 8 Elite lain, termasuk Galaxy S25 Ultra menurut Notebookcheck, bukan kelemahan khusus Sony.</p>
+            <p class="srcs">Sumber: <a href="https://www.gsmarena.com/compare.php3?idPhone1=13843&idPhone2=13218" target="_blank" rel="noopener">GSMArena — perbandingan &amp; hasil uji</a> · <a href="https://www.notebookcheck.net/Sony-Xperia-1-VII-review-A-dream-smartphone-for-content-creators-and-photo-enthusiasts.1121056.0.html" target="_blank" rel="noopener">Notebookcheck</a> · <a href="https://www.techradar.com/phones/sony-xperia-phones/sony-xperia-1-vii-review" target="_blank" rel="noopener">TechRadar</a> · <a href="https://www.tokopedia.com/find/sony-xperia-1-vii-5g" target="_blank" rel="noopener">Tokopedia</a></p>
+          </article>
+
+          <article class="card" data-price="20000000" data-antutu="2052015" data-ram="12" data-official="import">
+            <span class="badge">Peringkat 3 · Flagship termurah</span>
+            <h3>Sony Xperia 1 VI</h3>
+            <p class="variant">12/256 · 12/512 (16/512 khusus Jepang) — UFS 4.0</p>
+            <p class="price">Rp 20.000.000–27.000.000<small>Impor, Tokopedia Nov 2026 · rentang listing lebih lebar Rp 20–32 jt tergantung penjual/varian; GizMax 12/512 Rp 26.799.000</small></p>
+            <p class="checkline"><span>5G ✓</span><span>microSD ✓ slot berbagi, s.d. 1,5 TB</span><span>Jack ✓</span><span>Stereo ✓</span></p>
+            <div class="specs">
+              <div><b>Chipset · AnTuTu v10</b>Snapdragon 8 Gen 3 · chipset 2.052.015 · perangkat GSMArena 1.612.156</div>
+              <div><b>Layar</b>OLED LTPO 6,5" · 1–120 Hz · Gorilla Glass Victus 2</div>
+              <div><b>Baterai</b>5.000 mAh · 30 W · pemakaian aktif GSMArena 17:27</div>
+              <div><b>Android</b>Rilis Android 14 → hingga Android 16 · 3 update besar, keamanan 4 tahun — sisa dukungan terpendek di Tier S</div>
+              <div><b>Kecepatan storage</b>UFS 4.0 terukur Notebookcheck: baca sekuensial 3.804 MB/dtk, tulis 3.348 MB/dtk</div>
+              <div><b>Pembaca microSD</b>Lambat: baca 43,3 MB/dtk · tulis 28,4 MB/dtk (Notebookcheck)</div>
+            </div>
+            <p class="tradeoff"><b>Konsekuensi:</b> stabilitas uji stres 3DMark Wild Life hanya 52% (Extreme 51,5%) dan permukaan mencapai 44,4 °C — pola umum Snapdragon 8 Gen 3, dan bahkan setelah throttling, CPU berjalannya tetap sekitar 2–4 kali kelas Dimensity 7025 Ultra. Simpan project dan sample aktif di storage internal, microSD hanya untuk arsip.</p>
+            <p class="srcs">Sumber: <a href="https://www.gsmarena.com/compare.php3?idPhone1=13003" target="_blank" rel="noopener">GSMArena — perbandingan &amp; hasil uji</a> · <a href="https://www.notebookcheck.net/Sony-Xperia-1-VI-The-high-end-smartphone-with-an-outstanding-battery-life-is-the-first-choice-for-photo-enthusiasts.871843.0.html" target="_blank" rel="noopener">Notebookcheck</a> · <a href="https://www.tokopedia.com/newusedes/sony-xperia-1-vi-12-512-gb-dual-nano-sim-global-rom-imei-bea-cukai-khaki-green-12-512-gb-42338?extParam=ivf%3Dfalse%26keyword%3Dimei+bea+cukai%26src%3Dsearch" target="_blank" rel="noopener">Tokopedia — GizMax</a></p>
+          </article>
+        </div>
+      </div>
+
+      <!-- TIER A -->
+      <div class="tierblock" data-tierblock="A">
+        <div class="tierhead"><span class="tierletter">TIER A</span><h2>Kelas ±600 ribu — seri, semua impor</h2>
+        <p>Empat model berikut kecepatannya seri secara statistik (Snapdragon 6 Gen 3 dan 7s Gen 2 rentangnya tumpang tindih). Semuanya mentok di RAM 8 GB, jadi untuk multitasking berat model-model ini terasa sebagai penurunan nyata dari Tier S dan dari Redmi Note 14 5G 12 GB.</p></div>
+        <div class="grid">
+
+          <article class="card" data-price="7500000" data-antutu="626536" data-ram="8" data-official="import">
+            <span class="badge">Peringkat 4 · Seri</span>
+            <h3>Sony Xperia 10 VII</h3>
+            <p class="variant">8 GB RAM · 128 GB storage saja — UFS 3.1</p>
+            <p class="price">± Rp 7.500.000–8.600.000<small>Impor · tidak ada listing Tokopedia yang ditemukan · Eropa €449; angka Indonesia dari artikel dan listing regional</small></p>
+            <p class="checkline"><span>5G ✓</span><span>microSD ✓ slot berbagi, s.d. 2 TB</span><span>Jack ✓</span><span>Stereo ✓ depan</span></p>
+            <div class="specs">
+              <div><b>Chipset · AnTuTu v10</b>Snapdragon 6 Gen 3 · chipset 626.536 · skor perangkat tidak tersedia</div>
+              <div><b>Layar</b>OLED 6,1" FHD+ · 120 Hz</div>
+              <div><b>Baterai</b>5.000 mAh</div>
+              <div><b>Android</b>Rilis Android 15 → hingga 4 update besar, keamanan 6 tahun; update Android 17 dilaporkan meluncur November 2026</div>
+              <div><b>Berat</b>168 g — paling ringan di daftar peringkat</div>
+              <div><b>Catatan uji</b>Notebookcheck: performa "sangat terbatas", GPU lemah; baterai Wi-Fi ±24 jam</div>
+            </div>
+            <p class="tradeoff"><b>Konsekuensi:</b> lolos semua kriteria, tetapi satu-satunya konfigurasinya 8/128 GB — tidak memenuhi preferensi RAM 12 GB maupun storage 256 GB. Layar 6,1 inci juga sempit untuk mengatur banyak track.</p>
+            <p class="srcs">Sumber: <a href="https://www.notebookcheck.net/Small-light-smartphone-changes-identity-Sony-Xperia-10-VII-review.1189984.0.html" target="_blank" rel="noopener">Notebookcheck</a> · GSMArena · <a href="https://telset.id/gizmo/sony-xperia-10-vii-dan-10-viii-kebagian-android-17-ini-fitur-barunya" target="_blank" rel="noopener">telset.id</a></p>
+          </article>
+
+          <article class="card" data-price="10000000" data-antutu="626536" data-ram="8" data-official="import">
+            <span class="badge">Peringkat 5 · Seri — tidak lebih baik dari peringkat 4</span>
+            <h3>Sony Xperia 10 VIII</h3>
+            <p class="variant">8 GB RAM · 128 GB storage saja</p>
+            <p class="price">± Rp 10.000.000–11.000.000<small>Estimasi konversi dari Eropa €599 · tidak ada listing Tokopedia yang ditemukan — bukan harga toko terverifikasi</small></p>
+            <p class="checkline"><span>5G ✓</span><span>microSD ✓ slot berbagi</span><span>Jack ✓</span><span>Stereo ✓ depan</span></p>
+            <div class="specs">
+              <div><b>Chipset · AnTuTu v10</b>Snapdragon 6 Gen 3 · chipset 626.536 — identik dengan 10 VII</div>
+              <div><b>Layar</b>LTPS OLED 6,1" · 120 Hz · ±50% lebih terang (terukur 1.509 nits)</div>
+              <div><b>Baterai</b>5.000 mAh · 30 W</div>
+              <div><b>Android</b>Rilis Android 16 → 17 — tidak memenuhi preferensi di bawah Android 16</div>
+              <div><b>microSD</b>Kapasitas berbeda antar sumber: 2 TB (androidpure/flawcheck) vs 1,5 TB (servola)</div>
+              <div><b>Catatan uji</b>Performa berkelanjutan dilaporkan memburuk dibanding 10 VII (flawcheck, mengutip GSMArena)</div>
+            </div>
+            <p class="tradeoff"><b>Konsekuensi:</b> chipset, RAM, dan storage sama persis dengan 10 VII tetapi harganya 33% lebih mahal — GSMArena menyebutnya "praktis tidak mungkin direkomendasikan" di €600. Sepenuhnya kalah dari 10 VII kecuali kecerahan layar dan kecepatan storage. Hanya pertimbangkan bila 10 VII tidak tersedia.</p>
+            <p class="srcs">Sumber: <a href="https://m.gsmarena.com/sony_xperia_10_viii_5g-14894.php" target="_blank" rel="noopener">GSMArena — spesifikasi</a> · <a href="https://fo.gsmarena.com/sony_xperia_10_viii-review-2992.php" target="_blank" rel="noopener">GSMArena — ulasan</a> · <a href="https://www.androidpure.com/sony-xperia-10-viii-price-specs/" target="_blank" rel="noopener">androidpure</a></p>
+          </article>
+
+          <article class="card" data-price="0" data-antutu="626536" data-ram="8" data-official="import">
+            <span class="badge">Peringkat 6 · Seri · khusus AS</span>
+            <h3>Motorola Moto G Stylus 2026</h3>
+            <p class="variant">8 GB RAM · 128 atau 256 GB storage — UFS 3.1</p>
+            <p class="price">Tidak dijual di Indonesia<small>Khusus AS: $499 (128 GB) / $599 (256 GB) — harga AS, bukan harga impor terverifikasi</small></p>
+            <p class="checkline"><span>5G ✓</span><span>microSD ✓</span><span>Jack ✓</span><span>Stereo ✓</span></p>
+            <div class="specs">
+              <div><b>Chipset · AnTuTu v10</b>Snapdragon 6 Gen 3 · chipset 626.536</div>
+              <div><b>Layar</b>AMOLED 6,7" · 120 Hz</div>
+              <div><b>Baterai</b>5.200 mAh · 68 W + nirkabel 15 W</div>
+              <div><b>Android</b>Rilis Android 16</div>
+              <div><b>microSD</b>Kapasitas berbeda antar sumber: 1 TB (PhoneArena) vs 2 TB (NanoReview)</div>
+              <div><b>Lainnya</b>IP68/IP69 · stylus bawaan</div>
+            </div>
+            <p class="tradeoff"><b>Konsekuensi:</b> di antara kelompok seri ini, varian 256 GB-nya termasuk yang paling praktis — tetapi penjualannya khusus AS, RAM tetap 8 GB, dan rilis dengan Android 16.</p>
+            <p class="srcs">Sumber: PhoneScoop · PhoneArena · phandroid (catatan riset ronde 2)</p>
+          </article>
+
+          <article class="card" data-price="4200000" data-antutu="611000" data-ram="8" data-official="import">
+            <span class="badge">Peringkat 7 · Seri · slot microSD dedicated</span>
+            <h3>Motorola Edge 60 Stylus</h3>
+            <p class="variant">8 GB RAM · 256 GB storage saja — UFS 2.2</p>
+            <p class="price">± Rp 4.200.000–4.600.000<small>Konversi dari harga India ₹20.560–22.812 (Gadgets360, 14 Nov 2026) · tidak ada listing HP di Tokopedia Indonesia — hanya aksesori · impor dari India</small></p>
+            <p class="checkline"><span>5G ✓</span><span>microSD ✓ dedicated, s.d. 1 TB</span><span>Jack ✓</span><span>Stereo ✓ Dolby Atmos</span></p>
+            <div class="specs">
+              <div><b>Chipset · AnTuTu v10</b>Snapdragon 7s Gen 2 · ±598–625 ribu (seri dengan Snapdragon 6 Gen 3)</div>
+              <div><b>Layar</b>pOLED 6,67" 1,5K · 120 Hz</div>
+              <div><b>Baterai</b>5.000 mAh · 68 W + nirkabel</div>
+              <div><b>Android</b>Rilis Android 15 · hingga 2 update besar</div>
+              <div><b>Band 5G</b>Termasuk n40 dan n78 (sesuai Indonesia)</div>
+              <div><b>Lainnya</b>IP68 · stylus bawaan · 191 g</div>
+            </div>
+            <p class="tradeoff"><b>Konsekuensi:</b> satu-satunya di kelompok seri ini dengan slot microSD dedicated dan storage 256 GB, plus stylus yang berguna untuk mengedit piano roll. Kelemahannya RAM 8 GB, storage UFS 2.2 yang lambat, dan harus impor dari India tanpa garansi lokal.</p>
+            <p class="srcs">Sumber: <a href="https://m.gsmarena.com/motorola_edge_60_stylus-ampp-13785.php" target="_blank" rel="noopener">GSMArena — spesifikasi</a> · <a href="https://www.gadgets360.com/motorola-edge-60-stylus-price-in-india-131633" target="_blank" rel="noopener">Gadgets360</a> · <a href="https://www.tokopedia.com/find/motorola-edge-60-stylus" target="_blank" rel="noopener">Tokopedia — hanya aksesori</a></p>
+          </article>
+        </div>
+      </div>
+
+      <!-- TIER B -->
+      <div class="tierblock" data-tierblock="B">
+        <div class="tierhead"><span class="tierletter">TIER B</span><h2>Resmi Indonesia — kelas ±489 ribu</h2>
+        <p>Dua model yang lolos semua kriteria dan pernah dijual resmi di Indonesia. Kecepatannya seri; selisih nyatanya ada di RAM/storage dan status ketersediaan.</p></div>
+        <div class="grid">
+
+          <article class="card top" data-price="3699000" data-antutu="489247" data-ram="12" data-official="official">
+            <span class="badge">Peringkat 8 · Satu-satunya resmi &amp; masih dijual</span>
+            <h3>Redmi Note 14 5G</h3>
+            <p class="variant">12 GB RAM · 512 GB storage (ada juga 8/256 dan 6/128) — UFS 2.2</p>
+            <p class="price">Rp 3.699.000<small>Harga resmi Xiaomi Indonesia (turun dari Rp 3.999.000, Juni 2025) · Tokopedia Nov 2026 Rp 3,5–4,6 jt garansi resmi</small></p>
+            <p class="checkline"><span>5G ✓</span><span>microSD ✓ slot berbagi</span><span>Jack ✓</span><span>Stereo ✓ Dolby Atmos</span></p>
+            <div class="specs">
+              <div><b>Chipset · AnTuTu v10</b>Dimensity 7025 Ultra · ±489.247</div>
+              <div><b>Layar</b>AMOLED 6,67" · 120 Hz · HDR10+ · 2.100 nits</div>
+              <div><b>Baterai</b>5.110 mAh · 45 W</div>
+              <div><b>Android</b>Rilis Android 14, HyperOS — komitmen update OS tidak terverifikasi pada ronde ini</div>
+              <div><b>Audio</b>Jack 3,5 mm · stereo · Dolby Atmos · Hi-Res</div>
+              <div><b>Berat</b>190 g</div>
+            </div>
+            <p class="tradeoff"><b>Konsekuensi:</b> ini titik akhir bila garansi resmi adalah syarat mutlak — chipsetnya sekitar 4,7 kali lebih lambat dari skor perangkat Xperia 1 VIII, storage UFS 2.2, dan isi daya 45 W. Unit baru bisa sudah terpasang HyperOS 3 / Android 16, cek versi Android sebelum membayar (lihat bagian FL Studio Mobile).</p>
+            <p class="srcs">Sumber: <a href="https://hybrid.co.id/post/xiaomi-perkenalkan-warna-baru-sand-gold-dan-harga-terbaru-untuk-redmi-note-14-series/" target="_blank" rel="noopener">hybrid.co.id — harga resmi</a> · <a href="https://www.tokopedia.com/find/redmi-note-14-5g-12-512-gb?utm_source=google&utm_medium=organic&utm_campaign=find" target="_blank" rel="noopener">Tokopedia</a> · GSMArena</p>
+          </article>
+
+          <article class="card" data-price="0" data-antutu="490000" data-ram="8" data-official="official">
+            <span class="badge">Peringkat 9 · Seri · sudah dihentikan</span>
+            <h3>Samsung Galaxy A25 5G</h3>
+            <p class="variant">6/8 GB RAM · 128/256 GB storage — UFS 2.2</p>
+            <p class="price">Harga jalanan saat ini tidak terambil<small>Pernah dijual resmi di Indonesia, kini dihentikan (phoneranked, Okt 2026) — tinggal sisa stok; harga sisa stok tidak terverifikasi pada ronde ini</small></p>
+            <p class="checkline"><span>5G ✓</span><span>microSD ✓ hybrid, s.d. 1 TB</span><span>Jack ✓</span><span>Stereo ✓</span></p>
+            <div class="specs">
+              <div><b>Chipset · AnTuTu v10</b>Exynos 1280 · ±490 ribu (rentang 481–499 ribu) — seri dengan Dimensity 7025 Ultra</div>
+              <div><b>Layar</b>Super AMOLED 6,5" · 120 Hz</div>
+              <div><b>Baterai</b>5.000 mAh · 25 W</div>
+              <div><b>Android</b>Rilis Android 14 · 4 update OS</div>
+              <div><b>Dukungan</b>Janji update terpanjang di daftar ini pada ronde 1 (hingga Android 18)</div>
+              <div><b>Catatan</b>Model Desember 2023 — di luar jendela 2024–2026, dicantumkan sebagai jawaban untuk Samsung</div>
+            </div>
+            <p class="tradeoff"><b>Konsekuensi:</b> tetap Samsung tercepat dengan jack + 5G + microSD — tidak ada penerusnya yang lebih kencang. Galaxy A07 5G yang lebih baru memakai Dimensity 6300 (±428 ribu, lebih lambat) dan gagal di AMOLED, stereo, RAM, dan storage. A25 sendiri mentok 8/256 GB dan isi dayanya lambat.</p>
+            <p class="srcs">Sumber: <a href="https://www.samsung.com/za/smartphones/galaxy-a/galaxy-a25-5g-light-blue-128gb-sm-a256elbdafa/" target="_blank" rel="noopener">samsung.com — spesifikasi resmi</a> · GSMArena · phoneranked</p>
+          </article>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="alert">
+      <h3>Catatan POCO M7 Pro 5G: belum bisa dinyatakan lolos semua kriteria</h3>
+      <p>POCO M7 Pro 5G (Dimensity 7025 Ultra, ±489 ribu; 8/256, ada varian 12/256; jack, stereo, AMOLED 120 Hz, 5G; resmi Indonesia — mi.co.id Rp 3.399.000, harga rilis Rp 2.999.000, Tokopedia Rp 2,95–4,1 jt) adalah pilihan utama pada riset ronde 1. Namun pada ronde 2, <strong>keberadaan microSD pada model ini tidak terverifikasi</strong>, jadi model ini tidak dimasukkan ke peringkat lolos-semua-kriteria. Model seinduknya, Redmi Note 14 5G, terverifikasi memiliki microSD. Verifikasi langsung pada unit/spesifikasi resmi varian Indonesia diperlukan sebelum M7 Pro dinyatakan memenuhi syarat microSD.</p>
+      <p class="srcs">Sumber: <a href="https://www.mi.co.id/id/product/poco-m7-pro-5g/buy/" target="_blank" rel="noopener">mi.co.id</a> · <a href="https://www.tokopedia.com/find/poco-m7-pro-5g-8-256" target="_blank" rel="noopener">Tokopedia</a></p>
+    </div>
+  </section>
+
+  <!-- ============ PROJECT BERAT ============ -->
+  <section aria-labelledby="heavy-h">
+    <h2 id="heavy-h">Kecocokan untuk project berat &amp; multitasking</h2>
+    <p style="color:var(--muted);font-size:14.5px;margin-top:8px;max-width:66ch">Beban FL Studio Mobile itu CPU: banyak track dan efek saat mengedit, lalu render/export berkelanjutan, sambil aplikasi lain tetap terbuka. Tiga hal yang menentukan di sini adalah RAM, kecepatan storage, dan performa berkelanjutan — bukan skor puncak sesaat.</p>
+    <div class="facts">
+      <div class="fact"><b>12–16 GB + UFS 4.x</b><span>Kombinasi yang penting untuk project berat — hanya dimiliki tiga flagship Xperia 1 (dan Ulefone berspeaker mono)</span></div>
+      <div class="fact"><b>±50–60%</b><span>Sisa performa berkelanjutan flagship Sony setelah throttling — tetap sekitar 2–4 kali CPU berkelanjutan kelas Dimensity 7025 Ultra</span></div>
+      <div class="fact"><b>43,3 MB/dtk</b><span>Kecepatan baca microSD terukur Xperia 1 VI — project dan sample aktif wajib di storage internal</span></div>
+      <div class="fact"><b>8 GB = penurunan nyata</b><span>Semua model Tier A mentok 8 GB — aplikasi dan sample akan lebih sering dimuat ulang saat multitasking berat</span></div>
+    </div>
+
+    <div class="tablewrap" role="region" aria-label="Tabel RAM dan kecepatan storage">
+      <table>
+        <thead><tr><th>Kelompok</th><th>RAM maksimum</th><th>Storage</th><th>Model</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Terbaik</strong></td><td class="num">16 GB</td><td>UFS 4.0–4.1</td><td>Xperia 1 VIII (16/512, 16/1 TB) · Xperia 1 VII 16/512 (Jepang/pasar tertentu) · Xperia 1 VI 16/512 (khusus Jepang)</td></tr>
+          <tr><td><strong>Lantai realistis project berat</strong></td><td class="num">12 GB</td><td>UFS 4.0 / 2.2</td><td>Ketiga Xperia 1 (varian global) · Redmi Note 14 5G 12/512 (UFS 2.2)</td></tr>
+          <tr><td><strong>Di bawah kebutuhan</strong></td><td class="num">8 GB</td><td>UFS 2.2–3.1</td><td>Edge 60 Stylus · Xperia 10 VII/VIII · Moto G Stylus 2026 · Galaxy A25 5G (maks. 8 GB)</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="small" style="margin-top:8px">Kecepatan storage terukur: Xperia 1 VI (Notebookcheck, AndroBench) baca sekuensial 3.804 MB/dtk dan tulis 3.348 MB/dtk. Memuat library sample dan menyimpan project berskala langsung dengan angka ini; model UFS 2.2 jauh di bawahnya.</p>
+
+    <div class="alert">
+      <h3>Throttling: kencang sesaat, ±50–60% saat berkelanjutan — peringkat tidak berubah</h3>
+      <p><strong>Xperia 1 VI:</strong> stabilitas uji stres 3DMark Wild Life 52%, Wild Life Extreme 51,5%; suhu permukaan maksimum 44,4 °C pada uji Burnout 1 jam tanpa peringatan atau crash. Notebookcheck menilai pola ini lazim untuk Snapdragon 8 Gen 3. <strong>Xperia 1 VII:</strong> vapor chamber besar; TechRadar mencatat throttling progresif ke 55% puncak setelah 20 menit; basic-tutorials mencatat stabilitas Steel Nomad Light 59,5%; mobiledokan mencatat CPU berkelanjutan 50–60% dan GPU ±65%. Nilai stres Notebookcheck-nya setara Galaxy S25 Ultra. <strong>Xperia 1 VIII:</strong> vapor chamber ditingkatkan dari VII; laporan yang mengutip lab GSMArena menyebut penurunan performa berkelanjutan yang cukup besar dan bodi hangat, dengan penurunan bertahap dan hasil GPU yang bertahan baik.</p>
+      <p>Kesimpulan praktisnya: bahkan setelah throttling ke ±50–55% puncak, Snapdragon 8 Gen 3 / 8 Elite / 8 Elite Gen 5 tetap memberi sekitar <strong>2–4 kali CPU berkelanjutan</strong> dari kelas Dimensity 7025 Ultra. Peringatan yang belum terjawab: kecepatan pembaca microSD Xperia 1 VII dan 1 VIII belum terukur — kemiripannya dengan 1 VI adalah dugaan dari garis desain, bukan fakta terukur.</p>
+      <p class="srcs">Sumber: Notebookcheck · TechRadar · basic-tutorials · mobiledokan · networkustad (mengutip lab GSMArena)</p>
+    </div>
+  </section>
+
+  <!-- ============ FRONTIER ============ -->
+  <section aria-labelledby="frontier-h">
+    <h2 id="frontier-h">Batas kompromi — naik kecepatan, lepas apa?</h2>
+    <p style="color:var(--muted);font-size:14.5px;margin-top:8px;max-width:66ch">Tabel ini menjawab pertanyaan intinya secara persis: pada setiap anak tangga kecepatan, kriteria apa yang harus dilepas dan HP terbaiknya apa. Tidak ada anak tangga yang mengharuskan melepas 5G — semua HP di tabel ini punya 5G.</p>
+    <div class="tablewrap" role="region" aria-label="Tabel batas kompromi">
+      <table>
+        <thead><tr><th>Langkah</th><th>Kecepatan chipset (AnTuTu v10)</th><th>HP terbaik</th><th>Yang harus dilepas</th></tr></thead>
+        <tbody>
+          <tr><td><strong>0 — Semua kriteria, tercepat</strong></td><td class="num">SD 8 Elite Gen 5 · ±4,00 jt chip / 2,31 jt perangkat</td><td><strong>Xperia 1 VIII</strong> — impor Rp 30,5–40 jt</td><td>Penjualan resmi Indonesia + garansi resmi; preferensi Android di bawah 16 (rilis Android 16)</td></tr>
+          <tr><td><strong>0b — Semua kriteria, nilai terbaik</strong></td><td class="num">SD 8 Elite · ±2,7 jt / 2,06 jt</td><td><strong>Xperia 1 VII</strong> — impor Rp 27,5–29,5 jt</td><td>Penjualan resmi + garansi; wajib verifikasi IMEI (cacat daya 2025)</td></tr>
+          <tr><td><strong>0c — Semua kriteria, flagship termurah</strong></td><td class="num">SD 8 Gen 3 · 2,05 jt / 1,61 jt</td><td><strong>Xperia 1 VI</strong> — impor Rp 20–27 jt</td><td>Penjualan resmi + garansi; sisa dukungan terpendek (hingga Android 16)</td></tr>
+          <tr><td><strong>1 — Lepas stereo</strong></td><td class="num">Dimensity 9300+ · ±2.100.510</td><td><strong>Ulefone Armor 28 Ultra</strong> Rp 16,9–19,6 jt / <strong>29 Ultra</strong> Rp 16,9–17,2 jt</td><td>Speaker stereo (mono menurut GSMArena); juga penjualan resmi; bobot 450–688 g; throttling belum teruji outlet besar</td></tr>
+          <tr><td><strong>2 — Lepas microSD</strong></td><td class="num">SD 8 Elite Gen 5 · perangkat 3.229.764</td><td><strong>RedMagic 11 Pro</strong> (kipas aktif + pendingin cair) / Zenfone 12 Ultra (SD 8 Elite)</td><td>microSD; juga penjualan resmi (RedMagic); RedMagic rilis Android 16</td></tr>
+          <tr><td><strong>3 — Lepas jack, tetap resmi</strong></td><td class="num">Dimensity 8350 · ±1.421.380</td><td><strong>Motorola Edge 60 Pro</strong> 12/256 — resmi Rp 7,5–10 jt, garansi resmi</td><td>Jack 3,5 mm (pakai DAC/adapter USB-C); juga microSD</td></tr>
+          <tr><td><strong>4 — Lepas impor (semua kriteria + resmi)</strong></td><td class="num">Dimensity 7025 Ultra · ±489 ribu</td><td><strong>Redmi Note 14 5G 12/512</strong> — resmi Rp 3.699.000</td><td>Kecepatan: skor perangkat Xperia 1 VIII ±4,7 kali kelas ini; UFS 2.2; isi daya 45 W</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 style="margin-top:28px">Nyaris lolos — gagal tepat satu kriteria</h3>
+    <div class="excl">
+      <div><b>Ulefone Armor 28 Ultra · Dimensity 9300+ ±2.100.510 · 16 GB/1 TB UFS 4.0 · Tokopedia Rp 16,9–19,6 jt</b><span>Gagal stereo — speaker mono menurut GSMArena · 450 g · Android 15 · throttling belum teruji · tercatat discontinued di India (MySmartPrice)</span></div>
+      <div><b>Ulefone Armor 29 Ultra · Dimensity 9300+ ±2.100.510 · 16 GB/1 TB · baterai 21.200 mAh · Tokopedia Rp 16,9–17,2 jt</b><span>Gagal stereo — mono menurut GSMArena (satu retailer Finlandia, multitronic.fi, menulis stereo; GSMArena yang berlaku) · 688 g, 33,8 mm</span></div>
+      <div><b>Ulefone Armor 28 Pro · Dimensity 7300 ±671.587 · 16/512</b><span>Gagal stereo — mono</span></div>
+      <div><b>Ulefone Armor 34 Pro · Dimensity 7300 ±671.587 · 16/512 · baterai 25.500 mAh · proyektor bawaan</b><span>Gagal AMOLED — IPS LCD 120 Hz menurut GSMArena (situs lain keliru menulis AMOLED) · 825 g</span></div>
+      <div><b>RedMagic 11 Pro · SD 8 Elite Gen 5 · skor perangkat v10 tertinggi di antara HP berjack: 3.229.764 · RAM 12–24 GB · AMOLED 144 Hz · kipas aktif</b><span>Gagal microSD — tidak ada · tidak resmi di Indonesia · baterai berbeda antar sumber (8.000 vs 7.500 mAh)</span></div>
+      <div><b>ASUS Zenfone 12 Ultra · Snapdragon 8 Elite ±2,7 jt</b><span>Gagal microSD — tidak ada · tidak resmi di Indonesia</span></div>
+      <div><b>Motorola Edge 60 Pro · Dimensity 8350 Extreme ±1.421.380 · 12/256 UFS 4.0 · resmi Rp 7,5–10 jt</b><span>Gagal jack dan microSD — keduanya tidak ada</span></div>
+      <div><b>Sharp Aquos R9 · Snapdragon 7+ Gen 3 · 12/256 UFS 4.0 · OLED 240 Hz · pernah resmi Rp 9.999.000 (Des 2024)</b><span>Gagal jack — tidak ada</span></div>
+      <div><b>Fairphone 6 · Snapdragon 7s Gen 3 · microSD dedicated 2 TB · LTPO OLED 120 Hz</b><span>Gagal jack — tidak ada (semua kriteria lain lolos)</span></div>
+    </div>
+    <p class="small" style="margin-top:10px">Catatan untuk pemakai headset kabel: pada Ulefone, kriteria yang gagal adalah speaker HP-nya — monitoring lewat jack tetap kabel penuh. Itu tidak mengubah status gagalnya; keputusan menoleransinya ada di tangan pembeli, dan bobot 450–688 g serta throttling yang belum teruji adalah risiko terpisah.</p>
+  </section>
+
+  <!-- ============ CHART ============ -->
+  <section aria-labelledby="chart-h">
+    <h2 id="chart-h">Perbandingan kecepatan chipset</h2>
+    <p style="color:var(--muted);font-size:14.5px;margin-top:8px;max-width:66ch">Referensi chipset AnTuTu v10 (soc.mxbench) — semakin panjang semakin kencang. Angka ini dasar peringkatnya. Skor perangkat GSMArena untuk Sony selalu lebih rendah (penyetelan konservatif, 21–42% di bawah referensi chipset) dan tercantum di setiap kartu model. Dua batang abu-abu adalah HP nyaris-lolos yang gagal satu kriteria, ditampilkan sebagai konteks plafon.</p>
+    <div class="chartbox" role="img" aria-label="Grafik batang referensi chipset AnTuTu v10: Xperia 1 VIII 4.004.107, Xperia 1 VII sekitar 2,7 juta, Ulefone Armor 28 dan 29 Ultra 2.100.510 (gagal stereo), Xperia 1 VI 2.052.015, Motorola Edge 60 Pro 1.421.380 (gagal jack, konteks resmi Indonesia), Xperia 10 VII dan VIII serta Moto G Stylus 2026 626.536, Edge 60 Stylus sekitar 611 ribu, Galaxy A25 sekitar 490 ribu, Redmi Note 14 5G sekitar 489.247.">
+      <svg viewBox="0 0 700 560" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <text class="barnam" x="0" y="14">Sony Xperia 1 VIII — SD 8 Elite Gen 5</text>
+        <rect class="bar" x="0" y="22" width="640" height="16"/>
+        <text class="barlab" x="0" y="56">4.004.107</text>
+
+        <text class="barnam" x="0" y="80">Sony Xperia 1 VII — SD 8 Elite</text>
+        <rect class="bar" x="0" y="88" width="432" height="16"/>
+        <text class="barlab" x="440" y="102">±2,7 jt</text>
+
+        <text class="barnam" x="0" y="128">Ulefone Armor 28/29 Ultra — D9300+ (gagal stereo)</text>
+        <rect class="bar grey" x="0" y="136" width="336" height="16"/>
+        <text class="barlab" x="344" y="150">2.100.510</text>
+
+        <text class="barnam" x="0" y="176">Sony Xperia 1 VI — SD 8 Gen 3</text>
+        <rect class="bar" x="0" y="184" width="328" height="16"/>
+        <text class="barlab" x="336" y="198">2.052.015</text>
+
+        <text class="barnam" x="0" y="224">Motorola Edge 60 Pro — D8350 (gagal jack · resmi Indonesia)</text>
+        <rect class="bar grey" x="0" y="232" width="227" height="16"/>
+        <text class="barlab" x="235" y="246">1.421.380</text>
+
+        <text class="barnam" x="0" y="272">Xperia 10 VII / 10 VIII · Moto G Stylus 2026 — SD 6 Gen 3</text>
+        <rect class="bar" x="0" y="280" width="100" height="16"/>
+        <text class="barlab" x="108" y="294">626.536</text>
+
+        <text class="barnam" x="0" y="320">Motorola Edge 60 Stylus — SD 7s Gen 2</text>
+        <rect class="bar" x="0" y="328" width="98" height="16"/>
+        <text class="barlab" x="106" y="342">±598–625 rb</text>
+
+        <text class="barnam" x="0" y="368">Samsung Galaxy A25 5G — Exynos 1280 (dihentikan)</text>
+        <rect class="bar" x="0" y="376" width="78" height="16"/>
+        <text class="barlab" x="86" y="390">±490 rb</text>
+
+        <text class="barnam" x="0" y="416">Redmi Note 14 5G — D7025 Ultra (resmi Indonesia)</text>
+        <rect class="bar" x="0" y="424" width="78" height="16"/>
+        <text class="barlab" x="86" y="438">±489.247</text>
+
+        <text class="barnam" x="0" y="472">Skor perangkat GSMArena sebagai pembanding jujur: Xperia 1 VIII 2.312.684 · 1 VII 2.062.177 · 1 VI 1.612.156.</text>
+        <text class="barnam" x="0" y="492">RedMagic 11 Pro (tanpa microSD) memegang skor perangkat tertinggi di antara HP berjack: 3.229.764.</text>
+        <text class="barnam" x="0" y="520">Nilai 91mobiles dan NanoReview yang beredar untuk chipset ini adalah AnTuTu v11 — sengaja tidak dipakai di sini.</text>
+      </svg>
+    </div>
+    <p class="small" style="margin-top:8px">Skala batang: 640 piksel = 4.004.107. Sumber skor: soc.mxbench (referensi chipset AnTuTu 10) dan GSMArena (hasil ukur perangkat).</p>
+  </section>
+
+  <!-- ============ FL STUDIO MOBILE ============ -->
+  <section aria-labelledby="flm-h">
+    <h2 id="flm-h">FL Studio Mobile di Android 15 dan 16</h2>
+    <p style="color:var(--muted);font-size:14.5px;margin-top:8px;max-width:66ch">Bagian ini dari riset ronde 1 (14 November 2026) dan tetap berlaku: dua model Tier S ronde ini rilis dengan Android 15 dan 16, jadi status kompatibilitasnya relevan langsung.</p>
+    <div class="facts">
+      <div class="fact"><b>v5.0.5</b><span>Versi Play Store, diperbarui 9 Nov 2026</span></div>
+      <div class="fact"><b>Rp 100.000</b><span>Harga di Play Store Indonesia</span></div>
+      <div class="fact"><b>Android 8.0+</b><span>Syarat minimum resmi — tidak ada batas maksimum yang dinyatakan</span></div>
+      <div class="fact"><b>1 laporan</b><span>Audio mati total di Android 16 — satu laporan pengguna, bukan pengakuan resmi</span></div>
+    </div>
+
+    <div class="alert red">
+      <h3>Laporan terkonfirmasi: audio mati total di Android 16 / HyperOS 3</h3>
+      <p>Di forum Image-Line, seorang pengguna Redmi 14C melaporkan FL Studio Mobile 4.10.7 tidak mengeluarkan suara sama sekali setelah update ke Android 16 / HyperOS 3.0.20.0 — dari speaker, headset kabel, maupun Bluetooth. Timer dan meter mixer tetap bergerak, dan BandLab di HP yang sama berfungsi normal. Semua mode suara (Native, Fast, Safe, Ultra Safe), reinstall, dan lepas batasan baterai sudah dicoba, tidak ada yang berhasil. Belum ada balasan staf Image-Line maupun penyelesaian yang terlihat di thread tersebut.</p>
+      <p>Statusnya harus dibaca apa adanya: <strong>satu laporan pada satu model</strong>. Belum ada bukti apakah masalah ini menimpa model lain, dan belum ada bukti apakah v5.0.5 sudah memperbaikinya. Di Android 14 dan 15, tidak ditemukan laporan kegagalan audio FL Studio Mobile yang terkonfirmasi.</p>
+      <p class="srcs">Sumber: <a href="https://forum.image-line.com/viewtopic.php?t=341523&sid=39ed9946682889f8fd0a7c3a990277b0" target="_blank" rel="noopener">forum.image-line.com</a> · <a href="https://play.google.com/store/apps/details?id=com.imageline.FLM" target="_blank" rel="noopener">Play Store — FL Studio Mobile</a></p>
+    </div>
+
+    <div class="alert green">
+      <h3>Yang aman dilakukan</h3>
+      <p><strong>1.</strong> Cek versi Android di Pengaturan sebelum membayar — stok baru Note 14 5G bisa saja sudah terpasang HyperOS 3 / Android 16 dari toko, dan Xperia 1 VIII memang rilis dengan Android 16. <strong>2.</strong> Tolak tawaran update di toko sebelum FL Studio Mobile dicoba. <strong>3.</strong> Kalau terlanjur di Android 16, uji FL Studio Mobile dalam masa retur, termasuk semua mode suara — bug di atas bukan kepastian, dan BandLab terbukti tetap jalan di HP yang terdampak, jadi masih ada cadangan. <strong>4.</strong> Cadangkan project secara rutin: sejak FL Studio Mobile 3.6.0 / Android 11, semua file tersimpan di <span class="mono" style="font-size:13px">Android &gt; data &gt; com.imageline.FLM</span> dan <strong>ikut terhapus saat aplikasi di-uninstall</strong>.</p>
+    </div>
+
+    <div class="alert">
+      <h3>Catatan HyperOS: aplikasi gampang dimatikan di latar</h3>
+      <p>HyperOS termasuk OEM paling agresif mematikan aplikasi latar — dokumentasi OEM-quirks di GitHub menggolongkannya "paling hostile" untuk perekaman latar: aplikasi bisa dimatikan beberapa detik setelah layar mati kecuali diatur manual. Aturannya berlaku juga di Oppo, Vivo/iQOO, Realme, dan Huawei, jadi bukan masalah Xiaomi saja. Solusinya: aktifkan Autostart untuk FL Studio Mobile, set baterai ke "No restrictions", dan kunci aplikasi di Recents. Perlu dicatat, langkah ini <em>tidak</em> memperbaiki bug audio mati di Android 16 — itu masalah terpisah.</p>
+      <p class="srcs">Sumber: <a href="https://github.com/gautham495/react-native-nitro-audio-anvil/blob/HEAD/oem-quirks.md" target="_blank" rel="noopener">GitHub — OEM quirks</a> · <a href="https://support.image-line.com/action/knowledgebase?ans=676" target="_blank" rel="noopener">Image-Line — scoped storage</a></p>
+    </div>
+  </section>
+
+  <!-- ============ AUDIO ============ -->
+  <section aria-labelledby="audio-h">
+    <h2 id="audio-h">Audio untuk remix: kenapa jack itu penentu</h2>
+    <p style="color:var(--muted);font-size:14.5px;margin-top:8px;max-width:66ch">Saat monitoring dan cueing langsung, yang terasa adalah latensi — jeda antara aksi dan suara. Angka di bawah ini angka indikatif dari sumber pihak ketiga, bukan hasil ukur per model; riset tidak menemukan data latensi terukur untuk satu pun HP di daftar ini, jadi tidak ada angka per model yang dikutip.</p>
+    <div class="lat">
+      <div class="latcard">
+        <h3>Headset kabel 3,5 mm</h3>
+        <p class="big">&lt;5–10 ms</p>
+        <p>Satu-satunya jalur latensi rendah yang praktis di kelas harga ini. Tanpa dongle, tanpa menghalangi port isi daya.</p>
+      </div>
+      <div class="latcard">
+        <h3>USB-C + dongle DAC</h3>
+        <p class="big">Setara kabel</p>
+        <p>Latensinya bisa sebanding, tapi perlu dongle tambahan dan port terpakai — tidak bisa sambil mengisi daya tanpa splitter.</p>
+      </div>
+      <div class="latcard">
+        <h3>Bluetooth</h3>
+        <p class="big">100–250 ms</p>
+        <p>SBC 150–250 ms, AAC 100–180 ms, LDAC sekitar 100 ms. Untuk monitoring langsung saat remix, praktis tidak bisa dipakai. Pengecualian langka: aptX Low Latency ±32 ms dan LC3 di bawah 40 ms.</p>
+      </div>
+    </div>
+    <div class="tablewrap" role="region" aria-label="Tabel standar latensi Android">
+      <table>
+        <thead><tr><th>Standar Android (AAudio)</th><th>Batas latensi round-trip</th><th>Artinya</th></tr></thead>
+        <tbody>
+          <tr><td>Batas dasar perangkat genggam</td><td class="num">250 ms</td><td>Syarat minimum kompatibilitas Android</td></tr>
+          <tr><td>FEATURE_AUDIO_LOW_LATENCY</td><td class="num">50 ms</td><td>Perangkat yang menyatakan fitur latensi rendah</td></tr>
+          <tr><td>FEATURE_AUDIO_PRO</td><td class="num">25 ms</td><td>Kelas pro; HP kelas budget–menengah umumnya tidak menyatakannya</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="small" style="margin-top:8px">Sumber: <a href="https://source.android.com/docs/compatibility/release-notes?version=15" target="_blank" rel="noopener">AOSP Compatibility Definition</a> · <a href="https://audiolatencytest.org/" target="_blank" rel="noopener">audiolatencytest.org</a> · <a href="https://mimusic.net/audio-latency/" target="_blank" rel="noopener">mimusic.net</a>. FL Studio Mobile juga mendukung audio interface USB dan kontroler MIDI class-compliant (listing Play Store).</p>
+  </section>
+
+  <!-- ============ EXCLUDED ============ -->
+  <section aria-labelledby="excl-h">
+    <h2 id="excl-h">Yang gugur — dan alasannya</h2>
+    <p style="color:var(--muted);font-size:14.5px;margin-top:8px;max-width:66ch">Hasil penyisiran ronde 1 dan ronde 2. Penyebab terbanyak tetap sama: tidak ada jack. Ronde 2 menambahkan daftar chipset kencang yang gugur semuanya karena alasan yang sama.</p>
+    <div class="excl">
+      <div><b>Semua HP Dimensity 8300/8350/8400 yang diperiksa (termasuk Motorola Edge 60 Pro, OnePlus Nord CE5)</b><span>Tidak ada jack</span></div>
+      <div><b>Semua HP Snapdragon 7+ Gen 3 / 8s Gen 3 yang diperiksa (termasuk Sharp Aquos R9/R10)</b><span>Tidak ada jack</span></div>
+      <div><b>HP Snapdragon 8 Gen 2/3 selain Xperia 1 VI (2024–2026)</b><span>Tidak ada jack — Xperia 1 V (2023, SD 8 Gen 2) adalah pendahulu yang juga lolos kriteria, di luar jendela tahun riset</span></div>
+      <div><b>POCO X7 Pro · POCO X7 · POCO X6 Pro · POCO M8 Pro 5G (SD 7s Gen 4, Jan 2026)</b><span>Tidak ada jack — lini menengah Xiaomi 2026 melepas jack sepenuhnya</span></div>
+      <div><b>Redmi Note 14 Pro 5G / Pro+ 5G · Note 15 series · Note 17</b><span>Tidak ada jack</span></div>
+      <div><b>iQOO Z10 · Z9 · Z10x</b><span>Tidak ada jack (Z10x juga LCD)</span></div>
+      <div><b>Infinix Note 50 Pro · Hot 60 Pro+</b><span>Tidak ada jack</span></div>
+      <div><b>Samsung Galaxy A26 · A36 · A56 · M36</b><span>Tidak ada jack (A26 speaker-nya juga mono)</span></div>
+      <div><b>Samsung Galaxy A07 5G · Dimensity 6300 ±428.365</b><span>Lebih lambat dari Exynos 1280, dan gagal AMOLED (LCD), stereo (mono), RAM, dan storage · rilis Android 16</span></div>
+      <div><b>Doogee V40 Pro · S200 Plus · V30 Pro · Cubot KingKong X Pro (D8200) · Oukitel WP200 Pro (D8200)</b><span>Tidak ada jack — merek rugged selain Ulefone gugur di sini</span></div>
+      <div><b>Moto G86 Power (Dimensity 7300)</b><span>Tidak ada jack</span></div>
+      <div><b>Sharp Aquos sense9</b><span>Jack: TIDAK menurut GSMArena (beberapa situs sekunder menulis ada; video unboxing Indonesia menunjukkan adapter USB-C ke 3,5 mm di dalam boks, mendukung tidak ada jack) — diperlakukan sebagai tanpa jack</span></div>
+      <div><b>TCL 60 XE NxtPaper 5G</b><span>Jack + microSD + 5G ada, tapi LCD, Dimensity 6300, 8/128</span></div>
+      <div><b>Model ronde 1 tanpa 5G/microSD terverifikasi (POCO M6 Pro, Redmi Note 13 Pro 4G, Note 14 4G, Infinix Hot 50/60 Pro, Tecno Spark 40 Pro)</b><span>Tidak masuk peringkat ronde 2 — kriteria baru mensyaratkan 5G + microSD; detail lengkapnya ada di hasil riset ronde 1</span></div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="wrap">
+  <h2>Catatan riset dan hal yang belum terjawab</h2>
+  <p>Halaman ini dirangkum dari riset mendalam ronde 1 dan ronde 2, keduanya bertanggal 14 November 2026. Harga adalah listing Indonesia November 2026 sebagaimana terindeks 13–14 November 2026; halaman GSMArena Xperia 1 VIII tidak berhasil dirender langsung pada jendela riset, sehingga faktanya dibaca lewat tangkapan halaman GSMArena dan dikuatkan beberapa potongan halaman perbandingan GSMArena — keterbatasan ini dinyatakan apa adanya. Harga toko bisa berubah; waspadai unit repack atau eks-display yang dijual sebagai baru, dan untuk unit impor verifikasi status IMEI bea cukai sebelum membayar.</p>
+  <div class="openq">
+    <h3>Belum terjawab — dinyatakan apa adanya</h3>
+    <ul>
+      <li>microSD pada POCO M7 Pro 5G tidak terverifikasi pada ronde 2, jadi model itu belum bisa dinyatakan lolos semua kriteria.</li>
+      <li>Throttling Ulefone Armor 28/29 Ultra: tidak ditemukan uji stres dari outlet besar; performa berkelanjutan Dimensity 9300+ di bodi rugged tertutup 450–688 g tidak diketahui — risiko nyata untuk sesi export panjang.</li>
+      <li>Kecepatan pembaca microSD Xperia 1 VII dan 1 VIII belum terukur (hanya 1 VI: 43,3 MB/dtk baca). Kemiripannya adalah dugaan, bukan fakta.</li>
+      <li>Kapasitas microSD Xperia 10 VIII (2 TB vs 1,5 TB) dan Moto G Stylus 2026 (1 TB vs 2 TB) berbeda antar sumber.</li>
+      <li>Baterai RedMagic 11 Pro berbeda antar sumber: 8.000 mAh vs 7.500 mAh (perbedaan varian).</li>
+      <li>Tahun Sony berhenti menjual HP resmi di Indonesia berbeda antar sumber: 2016 (spekgadget) vs 2019 (interogator). Fakta tidak resminya tidak dibantah.</li>
+      <li>Harga jalanan Galaxy A25 5G saat ini tidak terambil — modelnya sudah dihentikan, tinggal sisa stok.</li>
+      <li>Komitmen update OS Redmi Note 14 5G tidak terverifikasi pada ronde 2 (rilis Android 14 / HyperOS).</li>
+      <li>Kedalaman stok varian Xperia 1 VIII 16/1 TB di Indonesia tidak diketahui (satu listing Tokopedia, Rp 43.499.000).</li>
+      <li>Dari ronde 1: apakah bug audio mati di Android 16 menimpa model selain Redmi 14C dan apakah FL Studio Mobile v5.0.5 sudah memperbaikinya — belum ada bukti ke arah mana pun; Image-Line belum ditemukan memberi pernyataan resmi soal dukungan Android 15/16.</li>
+      <li>Tidak ada data latensi audio terukur per model untuk HP mana pun di daftar ini.</li>
+    </ul>
+  </div>
+  <p style="margin-top:16px">Sumber utama: <a href="https://m.gsmarena.com/sony_xperia_1_viii-ampp-14660.php" target="_blank" rel="noopener">GSMArena — Xperia 1 VIII</a> · <a href="https://soc.mxbench.com/" target="_blank" rel="noopener">soc.mxbench</a> · <a href="https://www.notebookcheck.net/Sony-Xperia-1-VI-The-high-end-smartphone-with-an-outstanding-battery-life-is-the-first-choice-for-photo-enthusiasts.871843.0.html" target="_blank" rel="noopener">Notebookcheck</a> · <a href="https://play.google.com/store/apps/details?id=com.imageline.FLM" target="_blank" rel="noopener">Play Store</a> · <a href="https://forum.image-line.com/viewtopic.php?t=341523&sid=39ed9946682889f8fd0a7c3a990277b0" target="_blank" rel="noopener">Forum Image-Line</a> · <a href="https://www.tokopedia.com/find/redmi-note-14-5g-12-512-gb?utm_source=google&utm_medium=organic&utm_campaign=find" target="_blank" rel="noopener">Tokopedia</a></p>
+</footer>
+
+<script>
+(function(){
+  var cards = Array.prototype.slice.call(document.querySelectorAll('.card[data-price]'));
+  var blocks = Array.prototype.slice.call(document.querySelectorAll('.tierblock'));
+  var countLine = document.getElementById('countLine');
+  var currentFilter = 'all';
+  var currentSort = 'tier';
+  var originalOrder = blocks.map(function(b){ return Array.prototype.slice.call(b.querySelector('.grid').children); });
+
+  function match(card){
+    var price = parseInt(card.getAttribute('data-price'),10);
+    var ram = parseInt(card.getAttribute('data-ram'),10);
+    var off = card.getAttribute('data-official');
+    if(currentFilter==='all') return true;
+    if(currentFilter==='official') return off==='official';
+    if(currentFilter==='import') return off==='import';
+    if(currentFilter==='r12') return ram>=12;
+    if(currentFilter==='u10') return price>0 && price<10000000;
+    return true;
+  }
+
+  function apply(){
+    var visible = 0;
+    cards.forEach(function(c){ c.classList.remove('hidden-card'); });
+    blocks.forEach(function(b){
+      var grid = b.querySelector('.grid');
+      var items = Array.prototype.slice.call(grid.children);
+      if(currentSort==='tier'){
+        originalOrder[blocks.indexOf(b)].forEach(function(it){ grid.appendChild(it); });
+      } else {
+        items.sort(function(a,b2){
+          if(currentSort==='priceAsc'||currentSort==='priceDesc'){
+            var pa=parseInt(a.getAttribute('data-price'),10)||Infinity;
+            var pb=parseInt(b2.getAttribute('data-price'),10)||Infinity;
+            if(pa===Infinity&&pb===Infinity) return 0;
+            return currentSort==='priceAsc' ? pa-pb : pb-pa;
+          }
+          if(currentSort==='antutu'){
+            var aa=parseInt(a.getAttribute('data-antutu'),10)||0;
+            var ab=parseInt(b2.getAttribute('data-antutu'),10)||0;
+            return ab-aa;
+          }
+          return 0;
+        });
+        items.forEach(function(it){ grid.appendChild(it); });
+      }
+    });
+    cards.forEach(function(c){
+      var ok = match(c);
+      c.classList.toggle('hidden-card', !ok);
+      if(ok) visible++;
+    });
+    blocks.forEach(function(b){
+      var any = Array.prototype.some.call(b.querySelectorAll('.card'), function(c){ return !c.classList.contains('hidden-card'); });
+      b.style.display = any ? '' : 'none';
+    });
+    countLine.textContent = 'Menampilkan ' + visible + ' dari ' + cards.length + ' model yang lolos semua kriteria. Harga 0 berarti harga Indonesia terverifikasi tidak tersedia (khusus AS atau sisa stok).';
+  }
+
+  document.querySelectorAll('.fbtn').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      document.querySelectorAll('.fbtn').forEach(function(x){ x.setAttribute('aria-pressed','false'); });
+      btn.setAttribute('aria-pressed','true');
+      currentFilter = btn.getAttribute('data-filter');
+      apply();
+    });
+  });
+  document.getElementById('sortSel').addEventListener('change', function(e){
+    currentSort = e.target.value;
+    apply();
+  });
+  apply();
+})();
+</script>
+</body>
+</html>
